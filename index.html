@@ -387,6 +387,31 @@
     .bento-cell { opacity:0; transform:translateY(26px); }
     .valor-card  { opacity:0; transform:scale(0.82) translateY(18px); }
 
+    /* ── Gallery image hover preview ── */
+    #gallery-preview {
+      position:fixed; top:50%; left:50%; z-index:500;
+      transform:translate(-50%,-50%) scale(.88);
+      opacity:0; pointer-events:none;
+      transition:opacity .22s ease, transform .22s ease;
+      background:rgba(7,24,48,.96);
+      border:1px solid rgba(191,123,46,.35);
+      border-radius:6px;
+      padding:10px;
+      box-shadow:0 32px 80px rgba(0,0,0,.7);
+      max-width:82vw; max-height:82vh;
+    }
+    #gallery-preview.active {
+      opacity:1;
+      transform:translate(-50%,-50%) scale(1);
+    }
+    #gallery-preview img {
+      display:block;
+      max-width:78vw; max-height:74vh;
+      width:auto; height:auto;
+      object-fit:contain;
+      border-radius:3px;
+    }
+
     /* ── Keyframes ── */
     @keyframes slideUp  { from{transform:translateY(110%)} to{transform:translateY(0)} }
     @keyframes fadeUp   { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
@@ -843,6 +868,31 @@
     allReveals.forEach(el => ro.observe(el));
 
     /* counter handled by anime.js module below */
+
+    /* ── Gallery hover preview ── */
+    (function () {
+      const panel = document.createElement('div');
+      panel.id = 'gallery-preview';
+      const pImg = document.createElement('img');
+      panel.appendChild(pImg);
+      document.body.appendChild(panel);
+
+      let hideTimer;
+
+      document.querySelectorAll('.marquee-track img').forEach(img => {
+        img.addEventListener('mouseenter', () => {
+          clearTimeout(hideTimer);
+          pImg.src = img.src;
+          panel.classList.add('active');
+        });
+        img.addEventListener('mouseleave', () => {
+          hideTimer = setTimeout(() => panel.classList.remove('active'), 60);
+        });
+      });
+
+      panel.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+      panel.addEventListener('mouseleave', () => panel.classList.remove('active'));
+    })();
   </script>
 
   <script type="module">
