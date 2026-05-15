@@ -1,0 +1,21 @@
+# Audio files
+*.ogg
+*.mp3
+*.wav
+
+# Documents
+*.pdf
+*.docx
+*.doc
+
+# Scripts / dev files
+*.py
+transcribe.py
+plan.md
+preview_*.png
+
+# Misc
+*.jpg
+# Keep assets/ images — override below
+!assets/
+!assets/**

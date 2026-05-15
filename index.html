@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="D&C Group – Especialistas en diseño, supervisión e instalación de sistemas hidrosanitarios e hidráulicos en Punta Cana, República Dominicana.">
+  <meta property="og:title" content="D&C Group – Sistemas Hidrosanitarios">
+  <meta property="og:description" content="Soluciones técnicas de alta calidad para sistemas hidrosanitarios e hidráulicos.">
+  <meta property="og:type" content="website">
+  <title>D&amp;C Group – Sistemas Hidrosanitarios e Hidráulicos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    :root {
+      --navy:      #0D2B55;
+      --navy-dark: #071830;
+      --navy-mid:  #1A4A82;
+      --copper:    #BF7B2E;
+      --steel:     #5B8DB8;
+      --concrete:  #6B7A8D;
+      --white:     #FFFFFF;
+      --off-white: #F2F5F9;
+    }
+
+    body {
+      font-family:'Barlow',sans-serif;
+      background:var(--navy-dark);
+      color:var(--white);
+      overflow-x:hidden;
+    }
+
+    /* ── Progress bar ── */
+    #progress {
+      position:fixed; top:0; left:0; z-index:300;
+      height:2px; width:0%;
+      background:var(--copper);
+      pointer-events:none;
+      transition:width .08s linear;
+    }
+
+    /* ── Custom cursor (pointer devices only) ── */
+    @media (pointer:fine) {
+      body { cursor:none; }
+      .cursor {
+        position:fixed; z-index:9999;
+        width:10px; height:10px;
+        background:var(--copper); border-radius:50%;
+        pointer-events:none;
+        transform:translate(-50%,-50%);
+        transition:width .25s, height .25s;
+        will-change:transform;
+      }
+      .cursor-ring {
+        position:fixed; z-index:9998;
+        width:34px; height:34px;
+        border:1.5px solid rgba(191,123,46,.55);
+        border-radius:50%; pointer-events:none;
+        transform:translate(-50%,-50%);
+        will-change:transform;
+      }
+      .cursor.big  { width:6px; height:6px; }
+      .cursor-ring.big { width:52px; height:52px; border-color:var(--copper); }
+      a, button { cursor:none; }
+    }
+
+    /* ── Nav ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:26px 64px;
+      transition:padding .4s, background .4s, backdrop-filter .4s;
+    }
+    nav.scrolled {
+      padding:14px 64px;
+      background:rgba(7,24,48,.9);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(191,123,46,.12);
+    }
+
+    /* Logo */
+    .logo { display:flex; flex-direction:column; text-decoration:none; line-height:1; gap:3px; }
+    .logo-dc  { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:26px; color:var(--white); letter-spacing:3px; }
+    .logo-amp { color:var(--copper); }
+    .logo-group { font-family:'Barlow Condensed',sans-serif; font-weight:200; font-size:9px; letter-spacing:5px; color:var(--steel); }
+
+    /* Desktop links */
+    .nav-links { display:flex; gap:36px; list-style:none; }
+    .nav-links a {
+      font-size:10px; font-weight:500; letter-spacing:2.5px;
+      color:rgba(255,255,255,.6); text-decoration:none; text-transform:uppercase;
+      position:relative; transition:color .3s;
+    }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--copper); transition:width .3s; }
+    .nav-links a:hover,
+    .nav-links a.active { color:var(--white); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width:100%; }
+
+    /* Hamburger */
+    .nav-toggle {
+      display:none; flex-direction:column; gap:5px;
+      background:none; border:none; padding:4px;
+      cursor:pointer;
+    }
+    .nav-toggle span {
+      display:block; width:24px; height:1.5px;
+      background:var(--white); transition:transform .3s, opacity .3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity:0; }
+    .nav-toggle.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display:none; position:fixed; inset:0; z-index:150;
+      background:rgba(7,24,48,.97);
+      backdrop-filter:blur(20px);
+      flex-direction:column; align-items:center; justify-content:center; gap:40px;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:42px; font-weight:800; letter-spacing:3px;
+      color:rgba(255,255,255,.7); text-decoration:none; text-transform:uppercase;
+      transition:color .25s;
+    }
+    .mobile-menu a:hover { color:var(--copper); }
+
+    /* ── Hero ── */
+    .hero {
+      position:relative; height:100vh; min-height:640px;
+      display:flex; flex-direction:column;
+      justify-content:center; padding:0 64px; overflow:hidden;
+    }
+    .hero-bg {
+      position:absolute; inset:0;
+      background:url('assets/WhatsApp Image 2026-05-14 at 1.59.23 PM (4).jpeg') center/cover no-repeat;
+      transform:scale(1.08);
+      will-change:transform;
+    }
+    .hero-bg::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(110deg,rgba(7,24,48,.96) 42%,rgba(7,24,48,.42) 100%);
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0; z-index:1; opacity:.03; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:256px;
+    }
+    .hero-corner {
+      position:absolute; top:0; right:0; z-index:2;
+      width:160px; height:160px;
+      border-top:1.5px solid rgba(191,123,46,.3);
+      border-right:1.5px solid rgba(191,123,46,.3);
+    }
+    .hero-content { position:relative; z-index:2; max-width:860px; }
+
+    .hero-eyebrow {
+      display:flex; align-items:center; gap:14px; margin-bottom:28px;
+      opacity:0; transform:translateY(16px);
+      animation:fadeUp .7s .25s forwards;
+    }
+    .eyebrow-line  { width:32px; height:1px; background:var(--copper); flex-shrink:0; }
+    .eyebrow-text  { font-size:9.5px; font-weight:500; letter-spacing:4px; color:var(--copper); text-transform:uppercase; }
+
+    .hero-title {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900; font-size:clamp(64px,11vw,148px);
+      line-height:.88; letter-spacing:-1px; overflow:hidden;
+    }
+    .hero-title .word { display:block; transform:translateY(110%); animation:slideUp .85s cubic-bezier(.16,1,.3,1) forwards; }
+    .hero-title .word:nth-child(1) { animation-delay:.35s; }
+    .hero-title .word:nth-child(2) { animation-delay:.52s; }
+
+    .hero-subtitle {
+      font-family:'Barlow Condensed',sans-serif; font-weight:200;
+      font-size:clamp(12px,1.8vw,20px); letter-spacing:8px;
+      color:var(--steel); text-transform:uppercase; margin:16px 0 32px;
+      opacity:0; transform:translateY(16px); animation:fadeUp .7s .85s forwards;
+    }
+    .hero-desc {
+      font-size:14px; font-weight:300; line-height:1.85;
+      color:rgba(255,255,255,.48); max-width:400px;
+      opacity:0; transform:translateY(16px); animation:fadeUp .7s 1.05s forwards;
+    }
+    .hero-cta {
+      display:flex; gap:16px; margin-top:40px; flex-wrap:wrap;
+      opacity:0; transform:translateY(16px); animation:fadeUp .7s 1.25s forwards;
+    }
+
+    .btn-primary {
+      padding:13px 34px; background:var(--copper); color:var(--white);
+      font-family:'Barlow Condensed',sans-serif; font-size:10.5px; font-weight:700;
+      letter-spacing:3px; text-transform:uppercase; text-decoration:none;
+      border:none; position:relative; overflow:hidden; transition:transform .3s;
+      display:inline-block;
+    }
+    .btn-primary::before { content:''; position:absolute; inset:0; background:rgba(255,255,255,.15); transform:translateX(-100%); transition:transform .35s; }
+    .btn-primary:hover::before { transform:translateX(0); }
+    .btn-primary:hover { transform:translateY(-2px); }
+
+    .btn-outline {
+      padding:13px 34px; background:transparent; color:var(--white);
+      font-family:'Barlow Condensed',sans-serif; font-size:10.5px; font-weight:600;
+      letter-spacing:3px; text-transform:uppercase; text-decoration:none;
+      border:1px solid rgba(255,255,255,.22); transition:border-color .3s,color .3s,transform .3s;
+      display:inline-block;
+    }
+    .btn-outline:hover { border-color:var(--copper); color:var(--copper); transform:translateY(-2px); }
+
+    .btn-whatsapp {
+      display:inline-flex; align-items:center; gap:10px;
+      padding:14px 36px; background:#25D366; color:var(--white);
+      font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700;
+      letter-spacing:2.5px; text-transform:uppercase; text-decoration:none;
+      transition:transform .3s, filter .3s;
+    }
+    .btn-whatsapp:hover { transform:translateY(-2px); filter:brightness(1.1); }
+
+    .scroll-hint {
+      position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:8px; z-index:2;
+      opacity:0; animation:fadeUp .7s 1.8s forwards;
+    }
+    .scroll-hint span { font-size:8px; letter-spacing:3px; color:rgba(255,255,255,.3); text-transform:uppercase; }
+    .scroll-hint-line { width:1px; height:44px; background:linear-gradient(to bottom,var(--copper),transparent); animation:linePulse 2s ease-in-out infinite; }
+
+    /* ── Stats ── */
+    .stats-bar {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      background:var(--navy-dark);
+      border-top:1px solid rgba(191,123,46,.15);
+      border-bottom:1px solid rgba(191,123,46,.15);
+    }
+    .stat {
+      padding:30px 20px; text-align:center;
+      border-right:1px solid rgba(255,255,255,.06);
+    }
+    .stat:last-child { border-right:none; }
+    .stat-num {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:52px; font-weight:900; line-height:1; color:var(--copper);
+    }
+    .stat-label { font-size:8.5px; font-weight:500; letter-spacing:2px; color:var(--concrete); text-transform:uppercase; margin-top:5px; }
+
+    /* ── Shared ── */
+    section { padding:110px 64px; }
+
+    .section-eyebrow { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+
+    .section-title {
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:800; font-size:clamp(36px,5vw,70px);
+      line-height:.9; letter-spacing:-1px;
+    }
+
+    /* Fade-up reveal */
+    .reveal {
+      opacity:0; transform:translateY(34px);
+      transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.in { opacity:1; transform:translateY(0); }
+
+    /* Clip-path title reveal */
+    .reveal-clip {
+      clip-path:inset(0 0 100% 0);
+      transition:clip-path 1s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal-clip.in { clip-path:inset(0 0 0% 0); }
+
+    .d1 { transition-delay:.12s; }
+    .d2 { transition-delay:.24s; }
+    .d3 { transition-delay:.36s; }
+    .d4 { transition-delay:.48s; }
+
+    /* ── About ── */
+    .about { background:var(--navy-dark); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .about-body { font-size:14px; font-weight:300; line-height:1.9; color:rgba(255,255,255,.5); margin-bottom:14px; }
+    .about-body.strong { color:rgba(255,255,255,.75); font-weight:400; }
+    .about-img { position:relative; overflow:hidden; aspect-ratio:4/5; }
+    .about-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .7s ease; will-change:transform; }
+    .about-img:hover img { transform:scale(1.04); }
+    .about-img::before { content:''; position:absolute; bottom:-14px; left:-14px; width:66px; height:66px; border-bottom:1.5px solid var(--copper); border-left:1.5px solid var(--copper); z-index:2; }
+    .about-img::after  { content:''; position:absolute; top:-14px;  right:-14px; width:66px; height:66px; border-top:1.5px solid var(--copper); border-right:1.5px solid var(--copper); z-index:2; }
+
+    /* ── Services ── */
+    .services { background:var(--navy); padding-bottom:0; }
+    .services-header { margin-bottom:52px; }
+    .svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+    .svc-card {
+      padding:50px 38px 46px; background:rgba(255,255,255,.025);
+      border:1px solid rgba(255,255,255,.05); position:relative; overflow:hidden;
+      transition:background .4s;
+    }
+    .svc-card-bar { position:absolute; top:0; left:0; right:0; height:2px; background:var(--copper); transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.16,1,.3,1); }
+    .svc-card:hover { background:rgba(191,123,46,.05); }
+    .svc-card:hover .svc-card-bar { transform:scaleX(1); }
+    .svc-bg-num { position:absolute; top:18px; right:22px; font-family:'Barlow Condensed',sans-serif; font-size:80px; font-weight:900; color:rgba(255,255,255,.03); line-height:1; pointer-events:none; }
+    .svc-icon { width:44px; height:44px; margin-bottom:24px; }
+    .svc-card-name { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:800; letter-spacing:1px; color:var(--white); margin-bottom:18px; }
+    .svc-items { list-style:none; }
+    .svc-items li { font-size:13px; font-weight:300; color:rgba(255,255,255,.46); padding:7px 0 7px 16px; position:relative; border-bottom:1px solid rgba(255,255,255,.05); }
+    .svc-items li:last-child { border-bottom:none; }
+    .svc-items li::before { content:''; position:absolute; left:0; top:50%; width:7px; height:1px; background:var(--copper); }
+
+    /* ── Projects ── */
+    .projects { background:var(--navy-dark); }
+    .projects-header { margin-bottom:40px; }
+    .bento { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+    .bento-cell { position:relative; overflow:hidden; aspect-ratio:16/9; }
+    .bento-cell img { width:100%; height:100%; object-fit:cover; display:block; background:var(--off-white); transition:transform .65s cubic-bezier(.16,1,.3,1); will-change:transform; }
+    .bento-cell:hover img { transform:scale(1.06); }
+    .bento-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(7,24,48,.92) 0%,rgba(7,24,48,.12) 55%,transparent 100%);
+      display:flex; flex-direction:column; justify-content:flex-end; padding:26px;
+      transform:translateY(8px); opacity:.82; transition:transform .4s,opacity .4s;
+    }
+    .bento-cell:hover .bento-overlay { transform:translateY(0); opacity:1; }
+    .bento-num  { font-size:9px; font-weight:700; letter-spacing:3px; color:var(--copper); margin-bottom:5px; text-transform:uppercase; }
+    .bento-title { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:800; line-height:1.1; color:var(--white); margin-bottom:5px; }
+    .bento-desc  { font-size:11.5px; font-weight:300; color:rgba(255,255,255,.6); line-height:1.55; }
+
+    /* ── Gallery ── */
+    .gallery { background:var(--navy); padding:80px 0; overflow:hidden; }
+    .gallery-header { padding:0 64px; margin-bottom:44px; }
+    .marquee-row { overflow:hidden; -webkit-mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent); mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent); }
+    .marquee-row + .marquee-row { margin-top:3px; }
+    .marquee-track { display:flex; gap:3px; width:max-content; animation:marquee 28s linear infinite; will-change:transform; }
+    .marquee-track.rev { animation:marqueeRev 34s linear infinite; }
+    .marquee-track:hover { animation-play-state:paused; }
+    .marquee-track img { height:170px; width:auto; object-fit:cover; display:block; flex-shrink:0; }
+
+    /* ── Philosophy ── */
+    .philosophy { background:var(--navy-dark); position:relative; overflow:hidden; }
+    .phil-watermark {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:clamp(100px,16vw,210px); font-weight:900;
+      color:rgba(255,255,255,.018); white-space:nowrap; pointer-events:none;
+      letter-spacing:-4px; user-select:none;
+    }
+    .philosophy-inner { position:relative; z-index:1; max-width:780px; margin:0 auto; text-align:center; }
+    .phil-quote {
+      font-size:clamp(13px,1.5vw,17px); font-weight:300; line-height:1.9;
+      color:rgba(255,255,255,.62);
+      border-left:2px solid var(--copper); padding:4px 0 4px 28px; text-align:left;
+      margin:28px 0 56px;
+    }
+    .valores-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; }
+    .valor-card {
+      padding:30px 16px; text-align:center;
+      border:1px solid rgba(191,123,46,.12);
+      display:flex; flex-direction:column; align-items:center; gap:12px;
+      transition:background .35s,border-color .35s;
+    }
+    .valor-card:hover { background:rgba(191,123,46,.06); border-color:rgba(191,123,46,.4); }
+    .valor-card svg { width:36px; height:36px; }
+    .valor-label { font-family:'Barlow Condensed',sans-serif; font-size:10.5px; font-weight:700; letter-spacing:2.5px; color:var(--steel); text-transform:uppercase; }
+
+    /* ── Contact ── */
+    .contact { background:var(--navy); }
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .contact-sub { font-size:14px; font-weight:300; line-height:1.85; color:rgba(255,255,255,.46); margin:20px 0 40px; }
+    .contact-items { display:flex; flex-direction:column; gap:22px; margin-bottom:36px; }
+    .contact-item { display:flex; align-items:center; gap:18px; }
+    .contact-icon { width:44px; height:44px; flex-shrink:0; border:1px solid rgba(191,123,46,.3); display:flex; align-items:center; justify-content:center; }
+    .contact-lbl { font-size:8.5px; letter-spacing:2.5px; color:var(--concrete); text-transform:uppercase; margin-bottom:2px; }
+    .contact-val  { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:700; color:var(--white); letter-spacing:1px; }
+    .contact-val2 { font-size:12px; color:var(--concrete); margin-top:2px; }
+    .contact-visual { position:relative; aspect-ratio:1; overflow:hidden; }
+    .contact-visual img { width:100%; height:100%; object-fit:cover; display:block; }
+    .contact-visual::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(191,123,46,.18),transparent); }
+
+    /* ── Footer ── */
+    footer { background:var(--navy-dark); border-top:1px solid rgba(191,123,46,.12); padding:34px 64px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+    .ft-copy { font-size:10.5px; color:rgba(255,255,255,.22); }
+    .ft-tags { display:flex; gap:24px; }
+    .ft-tags span { font-size:9px; letter-spacing:2px; color:rgba(255,255,255,.22); text-transform:uppercase; }
+
+    /* ── Anime.js initial states ── */
+    .bento-cell { opacity:0; transform:translateY(26px); }
+    .valor-card  { opacity:0; transform:scale(0.82) translateY(18px); }
+
+    /* ── Keyframes ── */
+    @keyframes slideUp  { from{transform:translateY(110%)} to{transform:translateY(0)} }
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes linePulse{ 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(.5);opacity:.4} }
+    @keyframes marquee  { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes marqueeRev { from{transform:translateX(-50%)} to{transform:translateX(0)} }
+
+    /* ════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════ */
+    @media (max-width:1024px) {
+      nav  { padding:22px 32px; }
+      nav.scrolled { padding:14px 32px; }
+      .hero { padding:0 32px; }
+      section { padding:80px 32px; }
+      .gallery-header, footer { padding-left:32px; padding-right:32px; }
+      .about-grid { gap:48px; }
+      .contact-grid { gap:48px; }
+    }
+
+    @media (max-width:768px) {
+      /* Nav */
+      nav  { padding:18px 24px; }
+      nav.scrolled { padding:14px 24px; }
+      .nav-links { display:none; }
+      .nav-toggle { display:flex; }
+
+      /* Hero */
+      .hero { padding:0 24px; }
+      .hero-desc { display:none; }
+      .scroll-hint { display:none; }
+
+      /* Stats 2×2 */
+      .stats-bar { grid-template-columns:repeat(2,1fr); }
+      .stat { border-bottom:1px solid rgba(255,255,255,.06); }
+      .stat:nth-child(2) { border-right:none; }
+      .stat:nth-child(3),
+      .stat:nth-child(4) { border-bottom:none; }
+
+      /* Sections */
+      section { padding:64px 24px; }
+
+      /* About */
+      .about-grid { grid-template-columns:1fr; gap:40px; }
+      .about-img { aspect-ratio:3/2; }
+
+      /* Services */
+      .svc-grid { grid-template-columns:1fr; }
+
+      /* Projects bento */
+      .bento { grid-template-columns:1fr; }
+
+      /* Gallery */
+      .gallery-header { padding:0 24px; }
+      .marquee-track img { height:120px; }
+
+      /* Philosophy */
+      .valores-grid { grid-template-columns:repeat(2,1fr); }
+      .phil-quote { padding-left:18px; }
+
+      /* Contact */
+      .contact-grid { grid-template-columns:1fr; gap:40px; }
+      .contact-visual { aspect-ratio:16/9; }
+
+      /* Footer */
+      footer { flex-direction:column; align-items:flex-start; padding:28px 24px; gap:12px; }
+      .ft-tags { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Progress bar -->
+  <div id="progress"></div>
+
+  <!-- Cursors (hidden on touch via CSS) -->
+  <div class="cursor"      id="cur"></div>
+  <div class="cursor-ring" id="ring"></div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about"     onclick="closeMenu()">Nosotros</a>
+    <a href="#services"  onclick="closeMenu()">Servicios</a>
+    <a href="#projects"  onclick="closeMenu()">Proyectos</a>
+    <a href="#gallery"   onclick="closeMenu()">Galería</a>
+    <a href="#contact"   onclick="closeMenu()">Contacto</a>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a class="logo" href="#">
+      <span class="logo-dc">D<span class="logo-amp">&amp;</span>C</span>
+      <span class="logo-group">GROUP</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">Nosotros</a></li>
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#projects">Proyectos</a></li>
+      <li><a href="#gallery">Galería</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-corner"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Punta Cana · República Dominicana</span>
+      </div>
+      <div class="hero-title" aria-label="D&C GROUP">
+        <span class="word">D<span style="color:var(--copper)">&amp;</span>C</span>
+        <span class="word" style="color:rgba(255,255,255,.9)">GROUP</span>
+      </div>
+      <div class="hero-subtitle">Diseño &nbsp;·&nbsp; Supervisión &nbsp;·&nbsp; Instalación</div>
+      <p class="hero-desc">Especialistas en sistemas hidrosanitarios e hidráulicos. Soluciones técnicas de alta calidad para proyectos de cualquier escala en República Dominicana.</p>
+      <div class="hero-cta">
+        <a class="btn-primary" href="#projects">Ver Proyectos</a>
+        <a class="btn-outline"  href="#contact">Contactar</a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-hint-line"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num" data-to="10">0</div><div class="stat-label">Años de Experiencia</div></div>
+    <div class="stat"><div class="stat-num" data-to="50">0</div><div class="stat-label">Proyectos Completados</div></div>
+    <div class="stat"><div class="stat-num" data-to="3">0</div><div class="stat-label">Áreas de Especialización</div></div>
+    <div class="stat"><div class="stat-num" data-to="100">0</div><div class="stat-label">% Satisfacción</div></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div>
+        <div class="section-eyebrow reveal">
+          <div class="eyebrow-line"></div><span class="eyebrow-text">Quiénes Somos</span>
+        </div>
+        <div class="section-title reveal-clip d1" style="color:var(--white);margin-bottom:30px">
+          Expertos en<br><span style="color:var(--copper)">Soluciones</span><br>Hidráulicas
+        </div>
+        <p class="about-body reveal d2">D&amp;C Group es una empresa especialista en diseño, supervisión e instalación de sistemas sanitarios, hidráulicos, gas, contra incendios, extracciones y piscina.</p>
+        <p class="about-body strong reveal d3">Trabajamos con un enfoque integral, combinando la planificación, coordinación técnica y ejecución con los más altos estándares de calidad.</p>
+      </div>
+      <div class="about-img reveal d2">
+        <img src="assets/WhatsApp Image 2026-05-14 at 2.10.03 PM (1).jpeg" alt="Sistema hidráulico D&C Group" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-header">
+      <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span class="eyebrow-text">Lo que Hacemos</span></div>
+      <div class="section-title reveal-clip d1" style="color:var(--white)">Nuestros Servicios</div>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal">
+        <div class="svc-card-bar"></div>
+        <div class="svc-bg-num">01</div>
+        <svg class="svc-icon" viewBox="0 0 46 46" fill="none">
+          <path d="M32 9l5 5L16 35l-6 1.5 1.5-6L32 9z" stroke="#BF7B2E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M28 13l5 5" stroke="#BF7B2E" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M8 41h30" stroke="#BF7B2E" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <div class="svc-card-name">DISEÑO</div>
+        <ul class="svc-items">
+          <li>Diseños sanitarios</li><li>Diseños hidráulicos</li>
+          <li>Diseños sistema GLP</li><li>Diseño contra incendios</li>
+          <li>Hojas de cálculo</li>
+        </ul>
+      </div>
+      <div class="svc-card reveal d1">
+        <div class="svc-card-bar"></div>
+        <div class="svc-bg-num">02</div>
+        <svg class="svc-icon" viewBox="0 0 46 46" fill="none">
+          <path d="M5 23s6-11 18-11 18 11 18 11-6 11-18 11S5 23 5 23z" stroke="#BF7B2E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="23" cy="23" r="4" stroke="#BF7B2E" stroke-width="1.6"/>
+          <circle cx="23" cy="23" r="1.4" fill="#BF7B2E"/>
+        </svg>
+        <div class="svc-card-name">SUPERVISIÓN</div>
+        <ul class="svc-items">
+          <li>Dirección técnica</li><li>Control de calidad</li>
+          <li>Coordinación de talleres</li><li>Administración de materiales</li>
+          <li>Controles de procesos</li>
+        </ul>
+      </div>
+      <div class="svc-card reveal d2">
+        <div class="svc-card-bar"></div>
+        <div class="svc-bg-num">03</div>
+        <svg class="svc-icon" viewBox="0 0 46 46" fill="none">
+          <path d="M5 29h36" stroke="#BF7B2E" stroke-width="3" stroke-linecap="round"/>
+          <path d="M23 29V18" stroke="#BF7B2E" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="23" cy="13" r="4.5" stroke="#BF7B2E" stroke-width="1.6"/>
+          <path d="M19 13h8M23 9v8" stroke="#BF7B2E" stroke-width="1.3" stroke-linecap="round"/>
+          <rect x="17" y="27" width="12" height="4" rx="1.5" stroke="#BF7B2E" stroke-width="1.3"/>
+        </svg>
+        <div class="svc-card-name">INSTALACIONES</div>
+        <ul class="svc-items">
+          <li>Villas de lujo</li><li>Torres residenciales</li>
+          <li>Sótanos y parqueos</li><li>Naves industriales</li>
+          <li>Áreas comerciales</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="projects-header">
+      <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span class="eyebrow-text">Nuestro Trabajo</span></div>
+      <div class="section-title reveal-clip d1" style="color:var(--white)">Proyectos Destacados</div>
+    </div>
+    <div class="bento">
+      <div class="bento-cell">
+        <img src="https://capcana.com/wp-content/uploads/2025/10/Marina-Cap-Cana-Landscape.jpg" alt="Cap Cana" loading="lazy">
+        <div class="bento-overlay"><div class="bento-num">01 — CAP CANA</div><div class="bento-title">Complejo Residencial<br>Cap Cana</div><div class="bento-desc">Ejecución, coordinación y supervisión de todos los sistemas sanitarios e hidráulicos del complejo.</div></div>
+      </div>
+      <div class="bento-cell">
+        <img src="https://images.unsplash.com/photo-1628281158250-48001a7687d3?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Vista Cana" loading="lazy">
+        <div class="bento-overlay"><div class="bento-num">02 — VISTA CANA</div><div class="bento-title">Complejo Residencial<br>Vista Cana</div><div class="bento-desc">Parte del equipo de ejecución en áreas clave del proyecto, garantizando calidad en cada sistema.</div></div>
+      </div>
+      <div class="bento-cell">
+        <img src="https://www.realestatepuntacana.com/wp-content/uploads/2022/11/sury_0151-1.jpg" alt="Cocotal" loading="lazy">
+        <div class="bento-overlay"><div class="bento-num">03 — COCOTAL</div><div class="bento-title">Complejo Residencial<br>Cocotal</div><div class="bento-desc">Ejecución completa de preinstalaciones e instalación final de sistemas sanitarios e hidráulicos.</div></div>
+      </div>
+      <div class="bento-cell">
+        <img src="https://images.unsplash.com/photo-1619680939776-4eadd78709a4?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Boulevard Turístico" loading="lazy">
+        <div class="bento-overlay"><div class="bento-num">04 — BOULEVARD</div><div class="bento-title">Boulevard Turístico<br>del Este</div><div class="bento-desc">Ejecución de instalaciones en todas las áreas internas y externas del Boulevard Turístico.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-header reveal">
+      <div class="section-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">En Obra</span></div>
+      <div class="section-title reveal-clip d1" style="color:var(--white)">Proceso Constructivo</div>
+    </div>
+    <div class="marquee-row">
+      <div class="marquee-track">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.21 PM.jpeg"     alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.21 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.21 PM (2).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM.jpeg"     alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM (2).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM (3).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM (4).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.23 PM.jpeg"     alt="" loading="lazy">
+        <!-- duplicate for seamless loop -->
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.21 PM.jpeg"     alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.21 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.21 PM (2).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM.jpeg"     alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM (2).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM (3).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.22 PM (4).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.23 PM.jpeg"     alt="" loading="lazy">
+      </div>
+    </div>
+    <div class="marquee-row">
+      <div class="marquee-track rev">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.23 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.23 PM (2).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.24 PM.jpeg"     alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.24 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.24 PM (2).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.24 PM (3).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 2.21.56 PM.jpeg"     alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 2.21.56 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 5.21.09 PM.jpeg"     alt="" loading="lazy">
+        <!-- duplicate -->
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.23 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.23 PM (2).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.24 PM.jpeg"     alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.24 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.24 PM (2).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.24 PM (3).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 2.21.56 PM.jpeg"     alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 2.21.56 PM (1).jpeg" alt="" loading="lazy">
+        <img src="assets/WhatsApp Image 2026-05-14 at 5.21.09 PM.jpeg"     alt="" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy" id="philosophy">
+    <div class="phil-watermark">FILOSOFÍA</div>
+    <div class="philosophy-inner">
+      <div class="section-eyebrow reveal" style="justify-content:center">
+        <div class="eyebrow-line"></div><span class="eyebrow-text">Nuestra Filosofía</span><div class="eyebrow-line"></div>
+      </div>
+      <div class="section-title reveal-clip d1" style="color:var(--white);text-align:center;margin-bottom:0">
+        Lo que nos <span style="color:var(--copper)">define</span>
+      </div>
+      <blockquote class="phil-quote reveal d2">
+        En D&amp;C Group entendemos las necesidades y objetivos de cada proyecto, con esto buscamos de ser parte del esfuerzo y sacrificio diario, nos involucramos de tal manera que nuestros clientes nos empiezan a ver y tratar como más un aliado que un simple participantes, nos enfocamos en la buena práctica, en lo correcto, en lo eficiente y la sinceridad.
+      </blockquote>
+      <div class="valores-grid">
+        <div class="valor-card">
+          <svg viewBox="0 0 38 38" fill="none"><path d="M19 2L3 8.5V20c0 7.4 6.4 14.1 16 16.8 9.6-2.7 16-9.4 16-16.8V8.5L19 2z" stroke="#BF7B2E" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 19l4.5 4.5 9-9" stroke="#BF7B2E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="valor-label">Calidad</div>
+        </div>
+        <div class="valor-card">
+          <svg viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="13" stroke="#BF7B2E" stroke-width="1.5"/><circle cx="19" cy="19" r="7.5" stroke="#BF7B2E" stroke-width="1.5"/><circle cx="19" cy="19" r="2.5" fill="#BF7B2E"/></svg>
+          <div class="valor-label">Compromiso</div>
+        </div>
+        <div class="valor-card">
+          <svg viewBox="0 0 38 38" fill="none"><path d="M19 4a8 8 0 0 1 5.5 13.8c-.6.5-.9 1.2-.9 2v1H14.4v-1c0-.8-.3-1.5-.9-2A8 8 0 0 1 19 4z" stroke="#BF7B2E" stroke-width="1.5" stroke-linejoin="round"/><path d="M14.5 27.5h9M15.5 31h7" stroke="#BF7B2E" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <div class="valor-label">Innovación</div>
+        </div>
+        <div class="valor-card">
+          <svg viewBox="0 0 38 38" fill="none"><path d="M11 4h16v11a8 8 0 0 1-16 0V4z" stroke="#BF7B2E" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 8H8A3 3 0 0 0 11 11M27 8h3a3 3 0 0 1-3 3" stroke="#BF7B2E" stroke-width="1.4" stroke-linecap="round"/><path d="M19 23v5M14.5 28h9" stroke="#BF7B2E" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <div class="valor-label">Excelencia</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-grid">
+      <div>
+        <div class="section-eyebrow reveal"><div class="eyebrow-line"></div><span class="eyebrow-text">Hablemos</span></div>
+        <div class="section-title reveal-clip d1" style="color:var(--white);margin-bottom:0">
+          Contáctanos<br><span style="color:var(--copper)">Hoy</span>
+        </div>
+        <p class="contact-sub reveal d2">Estamos listos para ser parte de tu próximo proyecto. Cuéntanos lo que necesitas.</p>
+        <div class="contact-items reveal d3">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BF7B2E" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.32 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="contact-lbl">Teléfono</div>
+              <div class="contact-val">829-977-1917</div>
+              <div class="contact-val2">829-635-9331</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BF7B2E" stroke-width="1.8" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="contact-lbl">Ubicación</div>
+              <div class="contact-val">Punta Cana</div>
+              <div class="contact-val2">República Dominicana</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal d4">
+          <a class="btn-whatsapp" href="https://wa.me/18299771917" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            Escribir por WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="contact-visual reveal d2">
+        <img src="assets/WhatsApp Image 2026-05-14 at 1.59.23 PM (4).jpeg" alt="D&C Group equipo en obra" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a class="logo" href="#">
+      <span class="logo-dc">D<span class="logo-amp">&amp;</span>C</span>
+      <span class="logo-group">GROUP</span>
+    </a>
+    <div class="ft-copy">© 2026 D&amp;C Group · Todos los derechos reservados · Punta Cana, RD</div>
+    <div class="ft-tags">
+      <span>Diseño</span><span>Supervisión</span><span>Instalaciones</span>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Progress bar ── */
+    const prog = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      prog.style.width = pct + '%';
+    }, { passive:true });
+
+    /* ── Custom cursor (pointer devices) ── */
+    if (window.matchMedia('(pointer:fine)').matches) {
+      const cur = document.getElementById('cur');
+      const ring = document.getElementById('ring');
+      let mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove', e => {
+        mx=e.clientX; my=e.clientY;
+        cur.style.left=mx+'px'; cur.style.top=my+'px';
+      });
+      (function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+      document.querySelectorAll('a,button').forEach(el => {
+        el.addEventListener('mouseenter',()=>{ cur.classList.add('big'); ring.classList.add('big'); });
+        el.addEventListener('mouseleave',()=>{ cur.classList.remove('big'); ring.classList.remove('big'); });
+      });
+    }
+
+    /* ── Nav glass + active link ── */
+    const nav = document.getElementById('nav');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive:true });
+
+    const sections = document.querySelectorAll('section[id]');
+    const secObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }, { threshold:0.45 });
+    sections.forEach(s => secObs.observe(s));
+
+    /* ── Hamburger ── */
+    const toggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+    });
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      toggle.classList.remove('open');
+    }
+
+    /* ── Hero parallax ── */
+    const heroBg = document.getElementById('heroBg');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY < window.innerHeight)
+        heroBg.style.transform = `translateY(${window.scrollY*.3}px) scale(1.08)`;
+    }, { passive:true });
+
+    /* ── Scroll reveal (fade + clip-path) ── */
+    const allReveals = document.querySelectorAll('.reveal, .reveal-clip');
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+    }, { threshold:.1 });
+    allReveals.forEach(el => ro.observe(el));
+
+    /* counter handled by anime.js module below */
+  </script>
+
+  <script type="module">
+    import { animate, stagger, svg } from 'https://cdn.jsdelivr.net/npm/animejs@4.0.0/lib/anime.esm.js';
+
+    function onEnter(selector, cb, threshold = 0.12) {
+      const el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+      if (!el) return;
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) { obs.disconnect(); cb(); }
+      }, { threshold });
+      obs.observe(el);
+    }
+
+    /* ── 1. SVG line-draw: service icons ── */
+    onEnter('.svc-grid', () => {
+      const els = [...document.querySelectorAll('.svc-icon path, .svc-icon circle, .svc-icon rect')];
+      const drawables = els.map(el => svg.createDrawable(el));
+      animate(drawables, {
+        draw: ['0 0', '0 1'],
+        duration: 1500,
+        ease: 'inOutSine',
+        delay: stagger(35)
+      });
+    }, 0.1);
+
+    /* ── 2. Staggered bento project cells ── */
+    onEnter('.bento', () => {
+      animate('.bento-cell', {
+        opacity:    [0, 1],
+        translateY: [26, 0],
+        duration:   820,
+        ease:       'outExpo',
+        delay:      stagger(110)
+      });
+    }, 0.06);
+
+    /* ── 3. Valor cards — spring entrance ── */
+    onEnter('.valores-grid', () => {
+      animate('.valor-card', {
+        opacity:    [0, 1],
+        scale:      [0.82, 1],
+        translateY: [18, 0],
+        duration:   700,
+        ease:       'spring(1, 90, 12, 0)',
+        delay:      stagger(85)
+      });
+    }, 0.1);
+
+    /* ── 4. Stats counter ── */
+    onEnter('.stats-bar', () => {
+      document.querySelectorAll('.stat-num[data-to]').forEach(el => {
+        const target = +el.dataset.to;
+        const suffix = target === 100 ? '%' : '+';
+        const proxy  = { val: 0 };
+        animate(proxy, {
+          val:      target,
+          duration: 1800,
+          ease:     'outExpo',
+          onUpdate: () => { el.textContent = Math.round(proxy.val) + suffix; }
+        });
+      });
+    }, 0.5);
+
+    /* ── 5. Valor icon hover spring ── */
+    document.querySelectorAll('.valor-card').forEach(card => {
+      const icon = card.querySelector('svg');
+      card.addEventListener('mouseenter', () => {
+        animate(icon, { scale: 1.28, duration: 480, ease: 'spring(1, 80, 8, 0)' });
+      });
+      card.addEventListener('mouseleave', () => {
+        animate(icon, { scale: 1,    duration: 420, ease: 'outBack(2.5)' });
+      });
+    });
+  </script>
+</body>
+</html>
